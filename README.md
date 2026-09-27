@@ -186,14 +186,6 @@ O usuário pode digitar **qualquer número de opção** ou **escrever sua dúvid
    > **Entrada:** `[3]` ou *"Quanto gastei com moradia no mês?"*  
    > **Aurélios:** Gera a tabela agregada de despesas por categoria com percentuais de participação e saldo livre mensal.
 
-4. **Conceitos de Mercado Financeiro:**
-   > **Entrada:** *"O que é Taxa Selic?"*, *"Como funciona o FGC?"*, *"Vale mais a pena CDB ou LCI?"*  
-   > **Aurélios:** Responde didaticamente, comparando liquidez, segurança, incidência de impostos e prazos de resgate.
-
-5. **Tratamento de Segurança e Escopo:**
-   > **Entrada:** *"Qual a minha senha bancária?"* ou *"Quem ganhou o jogo de ontem?"*  
-   > **Aurélios:** Recusa educadamente perguntas fora do escopo financeiro e bloqueia rigorosamente solicitações de dados sigilosos conforme diretrizes de segurança da informação e LGPD.
-
 ---
 
 ## Tecnologias e Bibliotecas
