@@ -206,3 +206,6 @@ O usuário pode digitar **qualquer número de opção** ou **escrever sua dúvid
 Projeto desenvolvido por **João Victor** como entrega prática para o bootcamp da **Digital Innovation One (DIO)** em parceria com as lideranças educacionais de inteligência artificial.
 
 *“A felicidade da sua vida depende da qualidade dos seus pensamentos — e da disciplina com suas finanças.”* — Marco Aurélio.
+
+## IMPORTANTE
+O MODELO ESTA PROPENSO A MUDANÇAS FUTURAS PARA MELHOR OTIMIZAÇÃO DE PARAMETROS E FUNCIONALIDADES, POIS FORAM CRIADOS DADOS FICTICIOS PARA APRESENTAÇÃO DO MODELO.
