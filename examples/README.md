@@ -4,7 +4,7 @@ Esta pasta contém exemplos de implementação para cada etapa do desafio.
 
 ## Vídeos de Referência
 
-> 🎬 Em breve serão disponibilizados vídeos demonstrando a implementação completa de cada etapa, com foco no raciocínio por trás de cada decisão.
+> Em breve serão disponibilizados vídeos demonstrando a implementação completa de cada etapa, com foco no raciocínio por trás de cada decisão.
 
 | Etapa | Descrição | Link |
 |-------|-----------|------|
@@ -17,4 +17,4 @@ Esta pasta contém exemplos de implementação para cada etapa do desafio.
 
 ## Exemplo de Implementação Simples
 
-Confira na pasta `src/` um exemplo básico de estrutura de aplicação usando Streamlit.
+Confira na pasta `src/` a implementação completa da aplicação de terminal interativa (CLI) em Python, Pandas e Requests.

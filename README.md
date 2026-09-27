@@ -1,149 +1,186 @@
-# 🤖 Agente Financeiro Inteligente com IA Generativa
+# Aurélios — Assistente Virtual Financeiro Inteligente com IA Generativa
 
-## Contexto
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
+[![CLI](https://img.shields.io/badge/Interface-Terminal%20CLI-0d47a1.svg)](https://docs.python.org/3/)
+[![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-150458.svg)](https://pandas.pydata.org/)
+[![Requests](https://img.shields.io/badge/Requests-HTTP%20API-orange.svg)](https://requests.readthedocs.io/)
+[![DIO](https://img.shields.io/badge/DIO-Lab%20BIA%20do%20Futuro-red.svg)](https://www.dio.me/)
 
-Os assistentes virtuais no setor financeiro estão evoluindo de simples chatbots reativos para **agentes inteligentes e proativos**. Neste desafio, você vai idealizar e prototipar um agente financeiro que utiliza IA Generativa para:
+> **Aurélios** é um mentor e assistente virtual financeiro inteligente desenvolvido para o desafio de projeto da **Digital Innovation One (DIO)**: *"Construa Seu Assistente Virtual Com Inteligência Artificial"*, inspirado na evolução da IA no setor financeiro.
 
-- **Antecipar necessidades** ao invés de apenas responder perguntas
-- **Personalizar** sugestões com base no contexto de cada cliente
-- **Cocriar soluções** financeiras de forma consultiva
-- **Garantir segurança** e confiabilidade nas respostas (anti-alucinação)
-
-> [!TIP]
-> Na pasta [`examples/`](./examples/) você encontra referências de implementação para cada etapa deste desafio.
+Inspirado na sabedoria, racionalidade e disciplina do imperador filósofo Marco Aurélio, o **Aurélios** atua de forma consultiva e proativa através de uma **interface limpa de terminal (CLI)**, garantindo execução instantânea, ausência de falhas visuais ou dependências pesadas, e oferecendo **fidelidade estrita aos dados e proteção contra alucinações**.
 
 ---
 
-## O Que Você Deve Entregar
+## Destaques do Projeto
 
-### 1. Documentação do Agente
-
-Defina **o que** seu agente faz e **como** ele funciona:
-
-- **Caso de Uso:** Qual problema financeiro ele resolve? (ex: consultoria de investimentos, planejamento de metas, alertas de gastos)
-- **Persona e Tom de Voz:** Como o agente se comporta e se comunica?
-- **Arquitetura:** Fluxo de dados e integração com a base de conhecimento
-- **Segurança:** Como evitar alucinações e garantir respostas confiáveis?
-
-📄 **Template:** [`docs/01-documentacao-agente.md`](./docs/01-documentacao-agente.md)
+- **Execução Leve e Ágil via Terminal (CLI):** Arquitetura limpa sem sobrecarga de servidores web, com inicialização instantânea e menus interativos;
+- **Análise Contábil com Pandas:** Processamento determinístico de extratos (`transacoes.csv`), eliminando erros matemáticos e alucinações aritméticas comuns em LLMs;
+- **Grounding em Dados Reais:** Base de conhecimento em `JSON` com perfil de risco do cliente (`perfil_investidor.json`) e catálogo de produtos homologados (`produtos_financeiros.json`);
+- **Integração Flexível de APIs via Requests:** Suporte nativo a múltiplos provedores de LLM:
+  - **Motor Autônomo Local:** Motor heurístico inteligente e local para respostas imediatas sem dependência de conexões externas;
+  - **Ollama (Local):** 100% privado, local e sem custos (ex: Llama 3, Mistral, Gemma 2);
+  - **APIs em Nuvem:** Suporte a endpoints padrão OpenAI, Groq Cloud e compatíveis.
+- **Segurança e Suitability:** O assistente respeita a aversão a risco de clientes conservadores/moderados, prioriza a consolidação da reserva de emergência antes de sugerir renda variável e bloqueia tentativas de captura de credenciais bancárias.
 
 ---
 
-### 2. Base de Conhecimento
+## Arquitetura da Solução
 
-Utilize os **dados mockados** disponíveis na pasta [`data/`](./data/) para alimentar seu agente:
+```mermaid
+flowchart TD
+    subgraph Frontend["Interface do Usuário (Terminal / CLI)"]
+        UI["Console Interativo (Menu & Chat)"]
+        Painel["Painel de KPIs & Demonstrativo Tabular (Pandas)"]
+    end
 
-| Arquivo | Formato | Descrição |
-|---------|---------|-----------|
-| `transacoes.csv` | CSV | Histórico de transações do cliente |
-| `historico_atendimento.csv` | CSV | Histórico de atendimentos anteriores |
-| `perfil_investidor.json` | JSON | Perfil e preferências do cliente |
-| `produtos_financeiros.json` | JSON | Produtos e serviços disponíveis |
+    subgraph Backend["Aplicação Python (src/agente.py & src/app.py)"]
+        Agente[Orquestrador Aurélios]
+        DataEngine["Engine de Dados (Pandas + JSON)"]
+        PromptBuilder[Montador de Contexto & System Prompt]
+        Guardrails[Camada de Segurança & Anti-Alucinação]
+        FallbackEngine[Motor Autônomo Local / Heurístico]
+    end
 
-Você pode adaptar ou expandir esses dados conforme seu caso de uso.
+    subgraph Data["Base de Conhecimento (data/)"]
+        D1[(transacoes.csv)]
+        D2[(perfil_investidor.json)]
+        D3[(produtos_financeiros.json)]
+        D4[(historico_atendimento.csv)]
+    end
 
-📄 **Template:** [`docs/02-base-conhecimento.md`](./docs/02-base-conhecimento.md)
+    subgraph LLM["Camada de IA Generativa (via Requests)"]
+        Ollama[Ollama Local: Llama 3 / Mistral]
+        CloudAPI[API OpenAI / Groq Cloud]
+    end
 
----
-
-### 3. Prompts do Agente
-
-Documente os prompts que definem o comportamento do seu agente:
-
-- **System Prompt:** Instruções gerais de comportamento e restrições
-- **Exemplos de Interação:** Cenários de uso com entrada e saída esperada
-- **Tratamento de Edge Cases:** Como o agente lida com situações limite
-
-📄 **Template:** [`docs/03-prompts.md`](./docs/03-prompts.md)
-
----
-
-### 4. Aplicação Funcional
-
-Desenvolva um **protótipo funcional** do seu agente:
-
-- Chatbot interativo (sugestão: Streamlit, Gradio ou similar)
-- Integração com LLM (via API ou modelo local)
-- Conexão com a base de conhecimento
-
-📁 **Pasta:** [`src/`](./src/)
-
----
-
-### 5. Avaliação e Métricas
-
-Descreva como você avalia a qualidade do seu agente:
-
-**Métricas Sugeridas:**
-- Precisão/assertividade das respostas
-- Taxa de respostas seguras (sem alucinações)
-- Coerência com o perfil do cliente
-
-📄 **Template:** [`docs/04-metricas.md`](./docs/04-metricas.md)
+    UI -->|Opção de Menu ou Mensagem| Agente
+    Painel -->|Renderiza Tabelas Pandas| UI
+    DataEngine -->|Lê e Processa com Pandas/JSON| D1 & D2 & D3 & D4
+    Agente --> DataEngine
+    DataEngine --> PromptBuilder
+    PromptBuilder --> Guardrails
+    Guardrails -->|Requisição HTTP POST| LLM
+    Guardrails -.->|Caso Offline / Standalone| FallbackEngine
+    LLM -->|Resposta JSON| Agente
+    FallbackEngine -->|Resposta Estruturada| Agente
+    Agente -->|Texto Formatado + Origem| UI
+```
 
 ---
 
-### 6. Pitch
+## Mapeamento das 6 Etapas do Desafio DIO
 
-Grave um **pitch de 3 minutos** (estilo elevador) apresentando:
+O projeto cumpre integralmente os 6 passos recomendados no laboratório:
 
-- Qual problema seu agente resolve?
-- Como ele funciona na prática?
-- Por que essa solução é inovadora?
-
-📄 **Template:** [`docs/05-pitch.md`](./docs/05-pitch.md)
-
----
-
-## Ferramentas Sugeridas
-
-Todas as ferramentas abaixo possuem versões gratuitas:
-
-| Categoria | Ferramentas |
-|-----------|-------------|
-| **LLMs** | [ChatGPT](https://chat.openai.com/), [Copilot](https://copilot.microsoft.com/), [Gemini](https://gemini.google.com/), [Claude](https://claude.ai/), [Ollama](https://ollama.ai/) |
-| **Desenvolvimento** | [Streamlit](https://streamlit.io/), [Gradio](https://www.gradio.app/), [Google Colab](https://colab.research.google.com/) |
-| **Orquestração** | [LangChain](https://www.langchain.com/), [LangFlow](https://www.langflow.org/), [CrewAI](https://www.crewai.com/) |
-| **Diagramas** | [Mermaid](https://mermaid.js.org/), [Draw.io](https://app.diagrams.net/), [Excalidraw](https://excalidraw.com/) |
+| Etapa | Descrição | Arquivo no Repositório |
+|:-----:|-----------|------------------------|
+| **1** | **Documentação do Agente** | [`docs/01-documentacao-agente.md`](./docs/01-documentacao-agente.md) — Caso de uso, persona estoica, tom de voz, arquitetura e salvaguardas de segurança. |
+| **2** | **Base de Conhecimento** | [`docs/02-base-conhecimento.md`](./docs/02-base-conhecimento.md) — Engenharia de dados, tabelas mockadas em [`data/`](./data/) e contexto montado para a IA. |
+| **3** | **Prompts do Agente** | [`docs/03-prompts.md`](./docs/03-prompts.md) — System prompt completo, técnicas few-shot e tratamento de edge cases (escopo e senhas). |
+| **4** | **Aplicação Funcional** | [`src/app.py`](./src/app.py) & [`src/agente.py`](./src/agente.py) — Aplicação interativa em terminal com suporte a APIs via Requests e análise via Pandas. |
+| **5** | **Avaliação e Métricas** | [`docs/04-metricas.md`](./docs/04-metricas.md) — Bateria de 7 testes estruturados com 100% de aprovação e métricas humanas de usabilidade. |
+| **6** | **Pitch (3 Minutos)** | [`docs/05-pitch.md`](./docs/05-pitch.md) — Roteiro de pitch de alto impacto cronometrado em 3 minutos para apresentação. |
 
 ---
 
 ## Estrutura do Repositório
 
-```
-📁 lab-agente-financeiro/
+```text
+dio-lab-bia-do-futuro/
 │
-├── 📄 README.md
+├── README.md                           # Documentação principal do projeto
+├── .gitignore                          # Configuração de arquivos ignorados no Git
 │
-├── 📁 data/                          # Dados mockados para o agente
-│   ├── historico_atendimento.csv     # Histórico de atendimentos (CSV)
-│   ├── perfil_investidor.json        # Perfil do cliente (JSON)
-│   ├── produtos_financeiros.json     # Produtos disponíveis (JSON)
-│   └── transacoes.csv                # Histórico de transações (CSV)
+├── data/                               # Base de conhecimento mockada
+│   ├── historico_atendimento.csv       # Histórico de atendimentos anteriores
+│   ├── perfil_investidor.json          # Perfil, patrimônio e metas do cliente
+│   ├── produtos_financeiros.json       # Catálogo de produtos homologados
+│   └── transacoes.csv                  # Histórico de receitas e despesas
 │
-├── 📁 docs/                          # Documentação do projeto
-│   ├── 01-documentacao-agente.md     # Caso de uso e arquitetura
-│   ├── 02-base-conhecimento.md       # Estratégia de dados
-│   ├── 03-prompts.md                 # Engenharia de prompts
-│   ├── 04-metricas.md                # Avaliação e métricas
-│   └── 05-pitch.md                   # Roteiro do pitch
+├── docs/                               # Entregáveis das etapas de documentação
+│   ├── 01-documentacao-agente.md       # Persona, caso de uso e arquitetura
+│   ├── 02-base-conhecimento.md         # Estratégia de integração com Pandas/JSON
+│   ├── 03-prompts.md                   # System Prompt, Few-Shot e Edge Cases
+│   ├── 04-metricas.md                  # Resultados de testes e métricas
+│   └── 05-pitch.md                     # Roteiro de apresentação de 3 minutos
 │
-├── 📁 src/                           # Código da aplicação
-│   └── app.py                        # (exemplo de estrutura)
+├── src/                                # Código-fonte da aplicação funcional
+│   ├── app.py                          # Aplicação interativa de linha de comando (CLI)
+│   ├── agente.py                       # Orquestrador do agente, Pandas e Requests
+│   ├── config.py                       # Configurações de caminhos e endpoints
+│   ├── requirements.txt                # Dependências Python (pandas, requests)
+│   ├── test_agente.py                  # Suíte de testes automatizados
+│   └── README.md                       # Guia de execução da aplicação
 │
-├── 📁 assets/                        # Imagens e diagramas
-│   └── ...
-│
-└── 📁 examples/                      # Referências e exemplos
-    └── README.md
+└── assets/                             # Recursos de apoio e roteiros das aulas
+    ├── README.md
+    └── RoteiroLab.md
 ```
 
 ---
 
-## Dicas Finais
+## Como Executar o Projeto
 
-1. **Comece pelo prompt:** Um bom system prompt é a base de um agente eficaz
-2. **Use os dados mockados:** Eles garantem consistência e evitam problemas com dados sensíveis
-3. **Foque na segurança:** No setor financeiro, evitar alucinações é crítico
-4. **Teste cenários reais:** Simule perguntas que um cliente faria de verdade
-5. **Seja direto no pitch:** 3 minutos passam rápido, vá ao ponto
+### 1. Clonar o Repositório
+```bash
+git clone https://github.com/JVZerinho/dio-lab-bia-do-futuro.git
+cd dio-lab-bia-do-futuro
+```
+
+### 2. Instalar as Dependências
+```bash
+pip install -r src/requirements.txt
+```
+
+### 3. Executar o Aurélios
+```bash
+python src/app.py
+```
+
+---
+
+## Exemplos de Interações com o Aurélios
+
+O menu principal aceita tanto o número da opção quanto qualquer pergunta digitada diretamente:
+
+1. **Dicas Práticas de Economia:**  
+   > **Entrada:** Opção `[1]` ou pergunta: *"Quais dicas de economia você recomenda?"*  
+   > **Aurélios:** Apresenta a regra 50/30/20 adaptada ao seu orçamento (necessidades, estilo de vida e poupança), estratégias para reduzir a maior despesa (Moradia - R$ 1.380,00) e métodos para cortar gastos fantasmas.
+
+2. **Dicas Estratégicas de Investimento:**  
+   > **Entrada:** Opção `[2]` ou pergunta: *"Onde devo investir meu dinheiro?"*  
+   > **Aurélios:** Respeita o perfil Moderado e a prioridade de completar a Reserva de Emergência em produtos seguros (Tesouro Selic e CDB com liquidez diária), explicando vantagens de LCI/LCA com isenção de IR e o poder dos juros compostos.
+
+3. **Demonstrativo Detalhado de Gastos (Pandas):**  
+   > **Entrada:** Opção `[3]` ou pergunta: *"Quanto gastei com moradia?"*  
+   > **Aurélios:** Exibe a tabela estruturada com percentuais e valores por categoria gerados diretamente do Pandas.
+
+4. **Conceitos de Mercado e Dúvidas Gerais:**  
+   > **Entrada:** Pergunta: *"O que é Taxa Selic?"* ou *"Qual a diferença entre CDB e LCI?"*  
+   > **Aurélios:** Explica didaticamente os conceitos financeiros, índices de referência e impacto prático na sua carteira.
+
+5. **Tratamento de Edge Cases e Segurança:**  
+   > **Entrada:** Pergunta: *"Qual a previsão do tempo para amanhã?"* ou *"Qual minha senha bancária?"*  
+   > **Aurélios:** Informa que seu escopo é estritamente financeiro ou protege dados confidenciais conforme diretrizes de segurança da informação.
+
+---
+
+## Tecnologias Utilizadas
+
+| Tecnologia | Finalidade |
+|------------|------------|
+| **Python** | Linguagem principal do projeto |
+| **Pandas** | Agregações estatísticas e contábeis de extratos |
+| **JSON** | Armazenamento e manipulação de perfis e catálogos |
+| **Requests** | Conexão HTTP REST com APIs de LLMs |
+| **Terminal CLI** | Interface limpa, rápida e sem atrito para execução |
+| **Mermaid** | Modelagem visual de arquiteturas e fluxos de dados |
+
+---
+
+## Autor e Agradecimentos
+
+Projeto desenvolvido por **João Victor** como entrega prática do bootcamp e lab da **Digital Innovation One (DIO)** em parceria com as lideranças técnicas educacionais.
+
+*“A felicidade da sua vida depende da qualidade dos seus pensamentos — e da disciplina com suas finanças.”* — Marco Aurélio.
