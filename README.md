@@ -54,17 +54,17 @@ flowchart TD
         CloudAPI[API OpenAI / Groq Cloud]
     end
 
-    UI -->|Opção [1-7] ou Pergunta Direta| Agente
+    UI -->|Opção de Menu ou Pergunta Direta| Agente
     Demonstrativo -->|Renderiza Tabela Formatada| UI
-    DataEngine -->|Lê e Processa com Pandas/JSON| D1 & D2 & D3 & D4
+    DataEngine -->|Lê e Processa com Pandas e JSON| D1 & D2 & D3 & D4
     Agente --> DataEngine
     DataEngine --> PromptBuilder
     PromptBuilder --> Guardrails
     Guardrails -->|Requisição HTTP REST| LLM
-    Guardrails -.->|Caso Offline / Standalone| FallbackEngine
-    LLM -->|Resposta JSON (temp=0.7, tokens=1200)| Agente
-    FallbackEngine -->|Resposta Estruturada| Agente
-    Agente -->|Texto Formatado + Origem| UI
+    Guardrails -.->|Caso Offline ou Standalone| FallbackEngine
+    LLM -->|Resposta JSON da LLM| Agente
+    FallbackEngine -->|Resposta do Motor Local| Agente
+    Agente -->|Texto Formatado e Origem| UI
 ```
 
 ---
