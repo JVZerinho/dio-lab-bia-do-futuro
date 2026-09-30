@@ -1,0 +1,32 @@
+# Docker Compose - Aurélios Assistente Virtual Financeiro
+services:
+  # Serviço Principal: Aplicação CLI Interativa
+  aurelios:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: aurelios_app
+    stdin_open: true
+    tty: true
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONIOENCODING=utf-8
+      - OLLAMA_URL=http://host.docker.internal:11434/api/generate
+      - OLLAMA_MODEL=llama3
+    volumes:
+      - ./data:/app/data:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  # Serviço Secundário: Suíte de Testes Automatizados
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: aurelios_test
+    command: ["python", "src/test_agente.py"]
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONIOENCODING=utf-8
+    volumes:
+      - ./data:/app/data:ro

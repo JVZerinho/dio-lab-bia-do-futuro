@@ -143,6 +143,12 @@ python src/app.py
 python src/test_agente.py
 ```
 
+### 5. Executar via Docker (Opcional)
+```bash
+# Construir a imagem e rodar interativamente
+docker compose run --rm aurelios
+```
+
 ---
 
 ## Menu Principal e Exemplos de Interação
